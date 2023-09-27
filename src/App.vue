@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import TopPanel from "@/components/topPanel.vue";
+import TopPanel from "./components/topPanel.vue";
 </script>
 
 <template>
-  <top-panel />
+  <TopPanel />
   <RouterView />
 </template>
 
