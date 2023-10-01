@@ -195,7 +195,7 @@ export default {
   beforeMount() {
     // Загрузка ботов с сервера (пример)
     axios
-        .get(`http://localhost:3000/player`)
+        .get(`http://localhost:3000/api/player`)
         .then((response) => {
           // Присваиваем полученные данные массиву botList
           this.playerData = response.data;
@@ -209,7 +209,7 @@ export default {
     searchPlayer() {
       if (this.searchQuery !== this.lastQuery) {
         axios
-            .get(`http://localhost:3000/player/${this.searchQuery}`)
+            .get(`http://localhost:3000/api/player/${this.searchQuery}`)
             .then((response) => {
               // Обработка успешного ответа от сервера
               this.playerData = response.data; // Присваиваем полученные данные переменной playerData

@@ -1,30 +1,36 @@
 <template>
-<SearchField/>
-  <InfoCheaters/>
-  <div class="pagination" v-if="shouldShowPagination">
-    <button @click="previousPage" :disabled="currentPage === 1">Предыдущая</button>
-    <button v-if="showFirstPageButton" @click="goToPage(1)">1</button>
-    <template v-for="page in visiblePages" :key="'page-' + page">
-      <button
-          @click="goToPage(page)"
-          :class="{ active: page === currentPage, disabled: page === currentPage }"
-      >
-        {{ page }}
-      </button>
-    </template>
-    <button v-if="showLastPageButton" @click="goToPage(totalPages)">{{ totalPages }}</button>
-    <button @click="nextPage" :disabled="currentPage === totalPages">Следующая</button>
-  </div>
+    <SearchField @search-player="searchPlayer" /> <!-- Используем компонент для поля поиска -->
+
+    <PlayerList :player-data="playerData" :paginated-player-data="paginatedPlayerData" /> <!-- Используем компонент для списка игроков -->
+
+    <Pagination
+        :current-page="currentPage"
+        :total-pages="totalPages"
+        :visible-pages="visiblePages"
+        :show-first-page-button="showFirstPageButton"
+        :show-last-page-button="showLastPageButton"
+        :should-show-pagination="shouldShowPagination"
+        @previous-page="previousPage"
+        @next-page="nextPage"
+        @go-to-page="goToPage"
+    /> <!-- Используем компонент для пагинации -->
 </template>
 
 <script>
-import SearchField from "./SearchField.vue";
-import infoCheaters from "./infoCheaters.vue";
-import axios from "axios";
+import axios from 'axios';
+import SearchField from './SearchField.vue';
+import PlayerList from './infoCheaters.vue';
+import Pagination from './paginationCheaters.vue';
+
 export default {
-  components: {
-    SearchField,
-    infoCheaters,
+  data() {
+    return {
+      searchQuery: '',
+      maxLength: 16, // Максимальное количество символов
+      playerData: [],
+      currentPage: 1, // Текущая страница
+      resultsPerPage: 10, // Количество результатов на странице
+    };
   },
   computed: {
     paginatedPlayerData() {
@@ -69,6 +75,33 @@ export default {
     },
   },
   methods: {
+    searchPlayer(query) {
+      this.searchQuery = query;
+      if (this.searchQuery !== this.lastQuery) {
+        axios
+            .get(`http://localhost:3000/api/player/${this.searchQuery}`)
+            .then((response) => {
+              // Обработка успешного ответа от сервера
+              this.playerData = response.data; // Присваиваем полученные данные переменной playerData
+              console.log(
+                  "Выполняем поиск игрока с запросом:",
+                  this.searchQuery,
+                  "Получил данные:",
+                  this.playerData
+              );
+            })
+            .catch((error) => {
+              // Обработка ошибки
+              console.error("Ошибка при получении данных:", error);
+            });
+
+        // Сбрасываем текущую страницу к первой независимо от результата поиска
+        this.currentPage = 1;
+
+        // Здесь можно отправить запрос на сервер и обновить lastQuery после успешного поиска
+        this.lastQuery = this.searchQuery;
+      }
+    },
     previousPage() {
       if (this.currentPage > 1) {
         this.currentPage -= 1;
@@ -95,9 +128,27 @@ export default {
       });
     },
   },
-}
+  components: {
+    SearchField,
+    PlayerList,
+    Pagination,
+  },
+  beforeMount() {
+    // Загрузка данных с сервера перед началом рендера
+    axios
+        .get(`http://localhost:3000/api/player`)
+        .then((response) => {
+          // Присваиваем полученные данные массиву playerData
+          this.playerData = response.data;
+        })
+        .catch((error) => {
+          // Обработка ошибки
+          console.error("Ошибка при получении данных о ботах:", error);
+        });
+  },
+};
 </script>
 
 <style scoped>
-
+/* Ваши стили */
 </style>

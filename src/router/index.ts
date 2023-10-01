@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/cheats',
       name: 'cheats',
-      component: () => import('../components/cheats/tableCheats.vue')
+      component: () => import('../components/cheats/mainTable.vue')
     },
     {
       path: '/report',
