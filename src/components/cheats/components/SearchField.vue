@@ -7,7 +7,7 @@
         placeholder="Напишите ник читера"
         :maxlength="maxLength">
     <button @click="searchPlayer">
-      <img src="../icons/search.png" alt="Поиск">
+      <img src="../../icons/search.png" alt="Поиск">
     </button>
   </div>
 </template>

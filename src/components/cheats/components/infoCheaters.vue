@@ -1,16 +1,16 @@
 <template>
   <div class="center-container">
     <div v-if="playerData.length === 0" class="noInfo">
-      <img src="../icons/free-icon-periscope-1384059.png" alt="Logo">
+      <img src="../../icons/periscope.png" alt="Logo">
       <h1>Нет данных!</h1>
     </div>
     <div v-for="(playerData, index) in paginatedPlayerData" :key="index" class="article">
       <img :src="'https://minotar.net/avatar/'+playerData.nickname+'.png'" alt="Нарушитель" class="report">
       <p>
-        <img src="../icons/user.png" alt="Ник"/>Ник: {{ playerData.nickname }}<br>
-        <img src="../icons/marker.png" alt="Сервер"/>Сервер: {{ playerData.server }}<br>
-        <img src="../icons/document.png" alt="Нарушение"/>Нарушение: {{ playerData.violation }}<br>
-        <img src="../icons/calendar-clock.png" alt="Дата"/>Дата занесения: {{ playerData.date }}
+        <img src="../../icons/user.png" alt="Ник"/>Ник: {{ playerData.nickname }}<br>
+        <img src="../../icons/marker.png" alt="Сервер"/>Сервер: {{ playerData.server }}<br>
+        <img src="../../icons/document.png" alt="Нарушение"/>Нарушение: {{ playerData.violation }}<br>
+        <img src="../../icons/calendar-clock.png" alt="Дата"/>Дата занесения: {{ playerData.date }}
       </p>
     </div>
   </div>

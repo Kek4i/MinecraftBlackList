@@ -18,9 +18,9 @@
 
 <script>
 import axios from 'axios';
-import SearchField from './SearchField.vue';
-import PlayerList from './infoCheaters.vue';
-import Pagination from './paginationCheaters.vue';
+import SearchField from './components/SearchField.vue';
+import PlayerList from './components/infoCheaters.vue';
+import Pagination from './components/paginationCheaters.vue';
 
 export default {
   data() {
@@ -143,12 +143,11 @@ export default {
         })
         .catch((error) => {
           // Обработка ошибки
-          console.error("Ошибка при получении данных о ботах:", error);
+          console.error("Ошибка при получении данных о читерах:", error);
         });
   },
 };
 </script>
 
 <style scoped>
-/* Ваши стили */
 </style>
