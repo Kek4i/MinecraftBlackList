@@ -12,9 +12,18 @@
 
   <div class="complaint-overlay" v-if="isFormVisible">
     <div class="complaint-form">
-      <!-- Отображение данных формы в зависимости от текущего шага -->
       <SubmissionRules v-if="step === 1"/>
-      <CheaterData v-else-if="step === 2"/>
+      <CheaterData
+          v-else-if="step === 2"
+          :playerNickname="playerNickname"
+          :complaintDescription="complaintDescription"
+          :proofLinks="proofLinks"
+          :contactInfo="contactInfo"
+          @update:playerNickname="updatePlayerNickname"
+          @update:complaintDescription="updateComplaintDescription"
+          @update:proofLinks="updateProofLinks"
+          @update:contactInfo="updateContactInfo"
+      />
       <SuccessfullySent v-else-if="step === 3"/>
       <!-- Отображаем кнопки в контейнере button-container -->
       <div class="button-container">
@@ -108,44 +117,64 @@
 import SubmissionRules from './components/SubmissionRules.vue';
 import CheaterData from './components/CheaterData.vue';
 import SuccessfullySent from './components/SuccessfullySent.vue';
+
 export default {
   data() {
     return {
-      step: 1, // Начальный шаг формы
-      isFormVisible: false // Переменная для управления видимостью формы
+      playerNickname: '',
+      complaintDescription: '',
+      proofLinks: '',
+      contactInfo: '',
+      step: 1,
+      isFormVisible: false,
     };
   },
   methods: {
     showComplaintForm() {
-      this.isFormVisible = true; // Показать форму
+      this.isFormVisible = true;
     },
     nextStep() {
-      // Переход к следующему шагу формы
       if (this.step < 3) {
         this.step++;
       }
     },
     submitComplaint() {
-      // Здесь можно добавить логику для отправки жалобы
-      // Например, отправка данных на сервер
-      // После отправки можно скрыть форму и показать сообщение об успешной отправке или другую информацию
+      // Логика для отправки жалобы
+      console.log('Жалоба отправлена: ', {
+        playerNickname: this.playerNickname,
+        complaintDescription: this.complaintDescription,
+        proofLinks: this.proofLinks,
+        contactInfo: this.contactInfo,
+      });
+
       this.closeComplaintForm();
     },
     closeComplaintForm() {
-      this.isFormVisible = false; // Скрыть форму при нажатии на "Отмена"
-      this.step = 1; // Сбросить шаг формы
+      this.isFormVisible = false;
+      this.step = 1;
     },
     prevStep() {
-      // Переход к предыдущему шагу формы
       if (this.step > 1) {
         this.step--;
       }
+    },
+    updatePlayerNickname(value) {
+      this.playerNickname = value;
+    },
+    updateComplaintDescription(value) {
+      this.complaintDescription = value;
+    },
+    updateProofLinks(value) {
+      this.proofLinks = value;
+    },
+    updateContactInfo(value) {
+      this.contactInfo = value;
     },
   },
   components: {
     SubmissionRules,
     CheaterData,
-    SuccessfullySent
+    SuccessfullySent,
   },
 };
 </script>
