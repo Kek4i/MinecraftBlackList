@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 class="underlined">Шаг 2: Жалоба</h2>
     <div class="form-group">
       <label for="playerNickname">Ник нарушителя</label>
       <input type="text" id="playerNickname" :value="playerNickname" @input="updatePlayerNickname" placeholder="Напишите ник нарушителя">
@@ -23,6 +24,18 @@
 </template>
 
 <style scoped>
+.underlined {
+  position: relative;
+}
+
+.underlined::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  border-bottom: 2px solid #000;
+}
 .form-group {
   margin-bottom: 20px;
 }

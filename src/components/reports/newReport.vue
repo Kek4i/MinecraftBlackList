@@ -25,12 +25,15 @@
           @update:contactInfo="updateContactInfo"
       />
       <SuccessfullySent v-else-if="step === 3"/>
-      <!-- Отображаем кнопки в контейнере button-container -->
-      <div class="button-container">
+
+      <div class="button-container" v-if="step !== 3">
         <button class="cancel-button" v-if="step !== 1" @click="prevStep">Назад</button>
         <button class="cancel-button" v-else @click="closeComplaintForm">Отмена</button>
-        <button class="submit-button" v-if="step !== 3" @click="nextStep">Далее</button>
-        <button class="complain-button" v-else @click="submitComplaint">Пожаловаться</button>
+        <button class="complain-button" v-if="step === 2" @click="submitComplaint">Отправить</button>
+        <button class="submit-button" v-else-if="step === 1" @click="nextStep">Далее</button>
+      </div>
+      <div v-else>
+        <button class="cancel-button" @click="closeComplaintForm">Закрыть</button>
       </div>
     </div>
   </div>
@@ -147,7 +150,7 @@ export default {
         contactInfo: this.contactInfo,
       });
 
-      this.closeComplaintForm();
+      this.step = 3;
     },
     closeComplaintForm() {
       this.isFormVisible = false;
