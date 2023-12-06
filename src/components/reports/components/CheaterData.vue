@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2 class="underlined">Шаг 2: Жалоба</h2>
+    <h2>Шаг 2: Жалоба</h2>
+    <hr>
     <div class="form-group">
       <label for="playerNickname">Ник нарушителя</label>
       <input type="text" id="playerNickname" :value="playerNickname" @input="updatePlayerNickname" placeholder="Напишите ник нарушителя">
@@ -12,7 +13,7 @@
     </div>
 
     <div class="form-group">
-      <label for="proofLinks">Ссылки на доказательства</label>
+      <label for="proofLinks">Доказательства нарушения</label>
       <input type="text" id="proofLinks" :value="proofLinks" @input="updateProofLinks" placeholder="Ссылки">
     </div>
 
@@ -24,18 +25,13 @@
 </template>
 
 <style scoped>
-.underlined {
-  position: relative;
+hr {
+  border: none;
+  height: 2px;
+  background-color: black;
+  font-weight: bold;
 }
 
-.underlined::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  right: 0;
-  border-bottom: 2px solid #000;
-}
 .form-group {
   margin-bottom: 20px;
 }

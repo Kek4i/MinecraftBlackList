@@ -142,6 +142,18 @@ export default {
       }
     },
     submitComplaint() {
+      // Проверка на пустые поля
+      if (
+          !this.playerNickname ||
+          !this.complaintDescription ||
+          !this.proofLinks ||
+          !this.contactInfo
+      ) {
+        // Вывод сообщения об ошибке
+        alert('Пожалуйста, заполните все поля перед отправкой жалобы.');
+        return;
+      }
+
       // Логика для отправки жалобы
       console.log('Жалоба отправлена: ', {
         playerNickname: this.playerNickname,
@@ -149,6 +161,11 @@ export default {
         proofLinks: this.proofLinks,
         contactInfo: this.contactInfo,
       });
+
+      this.playerNickname = '';
+      this.complaintDescription = '';
+      this.proofLinks = '';
+      this.contactInfo = '';
 
       this.step = 3;
     },
