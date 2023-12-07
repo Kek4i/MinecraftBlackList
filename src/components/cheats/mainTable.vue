@@ -63,11 +63,11 @@ export default {
     },
     showFirstPageButton() {
       // Проверяем, находится ли текущая страница ближе к началу списка
-      return this.currentPage >= 3;
+      return this.currentPage >= 6;
     },
     showLastPageButton() {
       // Проверяем, находится ли текущая страница ближе к концу списка
-      return this.currentPage <= this.totalPages - 3;
+      return this.currentPage <= this.totalPages - 6;
     },
     shouldShowPagination() {
       // Определяем, должна ли отображаться пагинация
@@ -79,7 +79,7 @@ export default {
       this.searchQuery = query;
       if (this.searchQuery !== this.lastQuery) {
         axios
-            .get(`http://localhost:3000/api/player/${this.searchQuery}`)
+            .get(`https://blackmc.ru/api/player/${this.searchQuery}`)
             .then((response) => {
               // Обработка успешного ответа от сервера
               this.playerData = response.data; // Присваиваем полученные данные переменной playerData
@@ -136,7 +136,7 @@ export default {
   beforeMount() {
     // Загрузка данных с сервера перед началом рендера
     axios
-        .get(`http://localhost:3000/api/player`)
+        .get(`https://blackmc.ru/api/player`)
         .then((response) => {
           // Присваиваем полученные данные массиву playerData
           this.playerData = response.data;

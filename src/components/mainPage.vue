@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <div class="table">
     <div class="header">
       Про нас
@@ -64,6 +64,6 @@ h1 {
 
 .description{
   padding: 0 20px 20px 20px;
-  font: 17px Comic Sans MS, Comic Sans, cursive;
+  font: 17px Comic Sans MS, Comic Sans;
 }
 </style>

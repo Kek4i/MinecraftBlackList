@@ -10,7 +10,7 @@
         <img src="../../icons/user.png" alt="Ник"/>Ник: {{ playerData.nickname }}<br>
         <img src="../../icons/marker.png" alt="Сервер"/>Сервер: {{ playerData.server }}<br>
         <img src="../../icons/document.png" alt="Нарушение"/>Нарушение: {{ playerData.violation }}<br>
-        <img src="../../icons/calendar-clock.png" alt="Дата"/>Дата занесения: {{ playerData.date }}
+        <img src="../../icons/calendar-clock.png" alt="Дата"/>Дата занесения: <time>{{ playerData.date }}</time>
       </p>
     </div>
   </div>
@@ -49,7 +49,7 @@ export default {
 }
 
 p {
-  font: 17px Comic Sans MS, Comic Sans, cursive;
+  font: 17px Comic Sans MS, Comic Sans;
   padding: 2px;
   border: 1px solid #000000;
   border-radius: 4px;
