@@ -117,6 +117,7 @@
 </style>
 
 <script>
+import axios from 'axios';
 import SubmissionRules from './components/SubmissionRules.vue';
 import CheaterData from './components/CheaterData.vue';
 import SuccessfullySent from './components/SuccessfullySent.vue';
@@ -154,13 +155,38 @@ export default {
         return;
       }
 
-      // Логика для отправки жалобы
-      console.log('Жалоба отправлена: ', {
-        playerNickname: this.playerNickname,
-        complaintDescription: this.complaintDescription,
-        proofLinks: this.proofLinks,
-        contactInfo: this.contactInfo,
-      });
+      axios.post('https://blackmc.ru/api/report', {
+        params: {
+          playerNickname: this.playerNickname,
+          complaintDescription: this.complaintDescription,
+          proofLinks: this.proofLinks,
+          contactInfo: this.contactInfo,
+        }
+      })
+          .then(response => {
+            // Обработка успешного ответа, если необходимо
+            console.log('Успешно отправлено:', response.data);
+            // Возможно, здесь вы хотите выполнить какие-то дополнительные действия
+          })
+          .catch(error => {
+            // Обработка ошибок
+            console.error('Ошибка отправки данных:', error);
+
+            if (error.response) {
+              // Ответ пришел, но не в 2xx диапазоне
+              console.error('Данные ошибки:', error.response.data);
+              console.error('Статус ошибки:', error.response.status);
+            } else if (error.request) {
+              // Запрос был сделан, но ответ не получен
+              console.error('Запрос не был выполнен:', error.request);
+            } else {
+              // Что-то пошло не так в процессе отправки запроса
+              console.error('Ошибка:', error.message);
+            }
+          })
+          .finally(() => {
+            // Любой код, который нужно выполнить вне зависимости от успешного или неудачного запроса
+          });
 
       this.playerNickname = '';
       this.complaintDescription = '';

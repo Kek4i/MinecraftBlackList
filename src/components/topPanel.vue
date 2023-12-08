@@ -65,6 +65,10 @@ a {
   border: 0;
 }
 
+.nav-link:hover {
+  color: #CE8E1F; /* Change this to the desired color */
+}
+
 .nav-link.router-link-active,
 .nav-link.router-link-exact-active {
   color: blue;
@@ -81,6 +85,10 @@ a {
   font-size: 30px;
 }
 
+.menu-button:hover {
+  color: #CE8E1F; /* Change this to the desired color */
+}
+
 .close-button {
   background-color: transparent;
   border: none;
@@ -91,8 +99,12 @@ a {
   right: 10px;
 }
 
+.close-button:hover {
+  color: #CE8E1F; /* Change this to the desired color */
+}
+
 /* Добавляем стили для маленьких экранов */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .menu-button {
     display: inline-block;
   }
@@ -134,6 +146,10 @@ a {
   font-weight: 600;
 }
 
+.modal-link:hover {
+  color: #CE8E1F; /* Change this to the desired color */
+}
+
 </style>
 
 <script setup lang="ts">
@@ -159,6 +175,6 @@ onMounted(() => {
 window.addEventListener('resize', checkScreenSize);
 
 function checkScreenSize() {
-  isSmallScreen.value = window.innerWidth <= 768;
+  isSmallScreen.value = window.innerWidth <= 850;
 }
 </script>

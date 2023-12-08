@@ -7,23 +7,14 @@
     <div v-for="(playerData, index) in paginatedPlayerData" :key="index" class="article">
       <img :src="'https://minotar.net/avatar/'+playerData.nickname+'.png'" alt="Нарушитель" class="report">
       <p>
-        <img src="../../icons/user.png" alt="Ник"/>Ник: {{ playerData.nickname }}<br>
-        <img src="../../icons/marker.png" alt="Сервер"/>Сервер: {{ playerData.server }}<br>
-        <img src="../../icons/document.png" alt="Нарушение"/>Нарушение: {{ playerData.violation }}<br>
-        <img src="../../icons/calendar-clock.png" alt="Дата"/>Дата занесения: <time>{{ playerData.date }}</time>
+        &#128100;Ник: {{ playerData.nickname }}<br>
+        &#127963; Сервер: {{ playerData.server }}<br>
+        &#128203;Нарушение: {{ playerData.violation }}<br>
+        &#128198;Дата занесения: <time>{{ formatDate(playerData.date) }}</time>
       </p>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    playerData: Array, // Принимаем список игроков как пропс
-    paginatedPlayerData: Array, // Принимаем список игроков для текущей страницы как пропс
-  },
-};
-</script>
 
 <style scoped>
 .center-container {
@@ -31,6 +22,8 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 800px; /* Установите желаемую максимальную ширину */
+  margin: 0 auto; /* Центрирование по горизонтали */
 }
 
 .article {
@@ -39,8 +32,8 @@ export default {
   padding: 10px;
   display: flex;
   margin-bottom: 10px;
-  min-width: 600px;
-  min-height: 150px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .article img {
@@ -53,20 +46,53 @@ p {
   padding: 2px;
   border: 1px solid #000000;
   border-radius: 4px;
-  width: 500px;
+  width: 100%; /* Занимает 100% ширины блока .article */
   height: 120px;
 }
 
-.report{
+.report {
   padding: 2px;
   border: 1px solid #000000;
   border-radius: 4px;
 }
 
-.noInfo{
+.noInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
 }
+
+/* Добавляем стили для мобильных устройств */
+@media screen and (max-width: 440px) {
+  .article {
+    flex-direction: column; /* Переставляем элементы в столбец */
+    height: auto; /* Снимаем ограничение по высоте */
+  }
+
+  .article img {
+    margin-right: 0; /* Убираем отступ справа */
+    margin-bottom: 10px; /* Добавляем отступ снизу */
+  }
+
+  p {
+    height: auto; /* Снимаем ограничение по высоте */
+  }
+}
 </style>
+
+<script>
+export default {
+  props: {
+    playerData: Array, // Принимаем список игроков как пропс
+    paginatedPlayerData: Array, // Принимаем список игроков для текущей страницы как пропс
+  },
+  methods: {
+    formatDate(dateTime) {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const formattedDate = new Date(dateTime).toLocaleDateString(undefined, options);
+      return formattedDate;
+    },
+  },
+};
+</script>

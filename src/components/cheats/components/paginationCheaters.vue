@@ -78,4 +78,16 @@ export default {
   cursor: not-allowed;
   opacity: 0.5; /* Уменьшаем прозрачность отключенной кнопки */
 }
+
+@media screen and (max-width: 600px) {
+  .pagination button:not(:first-child):not(:last-child):not(.active) {
+    display: none;
+  }
+
+  .pagination .current-page-indicator {
+    display: inline-block;
+    margin: 0 5px;
+  }
+}
+
 </style>
