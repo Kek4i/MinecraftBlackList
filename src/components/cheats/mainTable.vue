@@ -140,6 +140,8 @@ export default {
         .then((response) => {
           // Присваиваем полученные данные массиву playerData
           this.playerData = response.data;
+
+          this.playerData.sort((a, b) => b.id - a.id);
         })
         .catch((error) => {
           // Обработка ошибки

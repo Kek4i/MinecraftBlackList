@@ -16,10 +16,12 @@
       <CheaterData
           v-else-if="step === 2"
           :playerNickname="playerNickname"
+          :server="server"
           :complaintDescription="complaintDescription"
           :proofLinks="proofLinks"
           :contactInfo="contactInfo"
           @update:playerNickname="updatePlayerNickname"
+          @update:server="updateServer"
           @update:complaintDescription="updateComplaintDescription"
           @update:proofLinks="updateProofLinks"
           @update:contactInfo="updateContactInfo"
@@ -50,7 +52,7 @@
 
 .complaint-content {
   text-align: center;
-  font: 17px Comic Sans MS, Comic Sans, cursive;
+  font: 17px Comic Sans MS, Comic Sans;
   padding: 10px;
   border: 1px solid #000000;
   border-radius: 10px;
@@ -89,6 +91,8 @@
   width: 400px;
   max-width: 90%;
   text-align: center;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .button-container {
@@ -126,6 +130,7 @@ export default {
   data() {
     return {
       playerNickname: '',
+      server: '',
       complaintDescription: '',
       proofLinks: '',
       contactInfo: '',
@@ -146,6 +151,7 @@ export default {
       // Проверка на пустые поля
       if (
           !this.playerNickname ||
+          !this.server ||
           !this.complaintDescription ||
           !this.proofLinks ||
           !this.contactInfo
@@ -158,6 +164,7 @@ export default {
       axios.post('https://blackmc.ru/api/report', {
         params: {
           playerNickname: this.playerNickname,
+          server: this.server,
           complaintDescription: this.complaintDescription,
           proofLinks: this.proofLinks,
           contactInfo: this.contactInfo,
@@ -189,6 +196,7 @@ export default {
           });
 
       this.playerNickname = '';
+      this.server = '';
       this.complaintDescription = '';
       this.proofLinks = '';
       this.contactInfo = '';
@@ -206,6 +214,9 @@ export default {
     },
     updatePlayerNickname(value) {
       this.playerNickname = value;
+    },
+    updateServer(value) {
+      this.server = value;
     },
     updateComplaintDescription(value) {
       this.complaintDescription = value;

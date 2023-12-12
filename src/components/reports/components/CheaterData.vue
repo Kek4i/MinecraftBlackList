@@ -4,7 +4,19 @@
     <hr>
     <div class="form-group">
       <label for="playerNickname">Ник нарушителя</label>
-      <input type="text" id="playerNickname" :value="playerNickname" @input="updatePlayerNickname" placeholder="Напишите ник нарушителя">
+      <input
+          type="text"
+          id="playerNickname"
+          :value="playerNickname"
+          @input="updatePlayerNickname($event)"
+          placeholder="Напишите ник нарушителя"
+          maxlength="16"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="server">Сервер на котором было замечено нарушение</label>
+      <input type="text" id="server" :value="server" @input="updateServer" placeholder="Сервер (полное название)">
     </div>
 
     <div class="form-group">
@@ -14,7 +26,7 @@
 
     <div class="form-group">
       <label for="proofLinks">Доказательства нарушения</label>
-      <input type="text" id="proofLinks" :value="proofLinks" @input="updateProofLinks" placeholder="Ссылки">
+      <textarea :value="proofLinks" @input="updateProofLinks" placeholder="Ссылки" rows="5"></textarea>
     </div>
 
     <div class="form-group">
@@ -59,13 +71,21 @@ textarea {
 export default {
   props: {
     playerNickname: String,
+    server: String,
     complaintDescription: String,
     proofLinks: String,
     contactInfo: String,
   },
   methods: {
     updatePlayerNickname(event) {
-      this.$emit('update:playerNickname', event.target.value);
+      let newValue = event.target.value;
+      // Ограничение на количество символов
+      if (newValue.length <= 16) {
+        this.$emit('update:playerNickname', newValue);
+      }
+    },
+    updateServer(event) {
+      this.$emit('update:server', event.target.value);
     },
     updateComplaintDescription(event) {
       this.$emit('update:complaintDescription', event.target.value);
